@@ -7,6 +7,35 @@
             const KEY_PROFIT = 'binary_today_profit';
             const KEY_LOSS = 'binary_today_loss';
 
+            // THEME
+const THEME_KEY = 'binary_theme';
+
+function applyTheme(theme){
+    if(theme === 'dark'){ document.body.classList.add('dark'); }
+    else { document.body.classList.remove('dark'); }
+    const btn = $('themeToggle');
+    if(btn){
+        btn.textContent = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
+    }
+}
+
+function initTheme(){
+    const saved = localStorage.getItem(THEME_KEY);
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (prefersDark ? 'dark' : 'light');
+    applyTheme(initial);
+
+    const btn = $('themeToggle');
+    if(btn){
+        btn.addEventListener('click', ()=>{
+            const next = document.body.classList.contains('dark') ? 'light' : 'dark';
+            localStorage.setItem(THEME_KEY, next);
+            applyTheme(next);
+        });
+    }
+}
+
+
             let state = {
                 initialCapital: parseFloat($('totalCapital').value) || 0,
                 startAmount: parseFloat($('startAmount').value) || 0,
@@ -64,13 +93,13 @@
 
                     // stake calculation
                     if (i === 0 || (i > 0 && state.rows[i - 1].result === 'win')) {
-                        r.stake = Number(state.startAmount);
+                        r.stake = Number(state.startAmount);    
                     } else {
                         // sum of consecutive losing stakes prior to this trade
                         let sumLoss = 0;
                         for (const idx of consecutiveLossesIdx) sumLoss += Number(state.rows[idx].stake || 0);
                         const payout = state.payoutPercent || 100;
-                        r.stake = payout > 0 ? ((sumLoss + Number(r.profitTarget || 0)) / (payout / 100)) : (sumLoss + Number(r.profitTarget || 0));
+                        r.stake = payout > 0 ? ((sumLoss + Number(r.profitTarget || 0)) / (payout / 100)) : (sumLoss + Number(r.profitTarget || 0));  
                     }
 
                     r.profitIfWin = Number(r.stake) * (Number(state.payoutPercent) / 100);
@@ -123,8 +152,10 @@
             function renderTable() {
                 const wrap = $('tableWrap');
                 wrap.innerHTML = '';
-                const tbl = document.createElement('table');
-                tbl.innerHTML = `<thead><tr><th>Trade #</th><th>Stake</th><th>Profit Target (editable)</th><th>Profit if Win</th><th>Loss So Far</th><th>Capital Before</th><th>Result</th><th>Action</th></tr></thead><tbody></tbody>`;
+                const tbl = document.createElement('table');     
+
+
+          tbl.innerHTML = `<thead><tr><th>Trade #</th><th>Stake</th><th>Profit Target (editable)</th><th>Profit if Win</th><th>Loss So Far</th><th>Capital Before</th><th>Result</th><th>Action</th></tr></thead><tbody></tbody>`;
                 wrap.appendChild(tbl);
                 const tbody = tbl.querySelector('tbody');
 
@@ -206,6 +237,9 @@
             }));
 
             // initialize
+            initTheme(); 
             loadTodayStats();
             initRows();
         })();
+
+  

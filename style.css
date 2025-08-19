@@ -70,14 +70,16 @@
         th,
         td {
             padding: 8px 6px;
-            border-bottom: 1px solid #eef3fb;
+            border-bottom: 1px solid #7acaff;
             text-align: center;
             font-size: 13px
         }
 
         th {
-            background: #fbfdff
+            color: #0b1220;
+            background: #c8f3f6;
         }
+        
 
         input.small {
             width: 90px;
@@ -147,3 +149,18 @@
                 width: 100%
             }
         }
+    
+        /* Dark theme */
+body.dark{
+  --bg:#0b1220;
+  --card:#222f4f;
+  --accent:#38bdf8;
+  --muted:#9aa4b2;
+  --danger:#f87171;
+  --good:#4ade80;
+  color:#e8eef6;
+}
+body.dark h1{ color:#f8fafc; }
+body.dark .stat{ background:#111827; }
+body.dark button.gray{ background:#0f172a; color:#38bdf8; }
+      

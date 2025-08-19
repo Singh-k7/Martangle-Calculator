@@ -10,8 +10,8 @@
 </head>
 
 <body>
-    <h1>Binary Trading — Recovery (Martingale) Calculator</h1>
-
+    <h1>Binary Trading — Martingale Calculator</h1>
+      
     <div class="card">
         <div class="row">
             <div>
@@ -24,11 +24,11 @@
             </div>
             <div>
                 <label>Desired Profit (per win)</label>
-                <input id="desiredProfit" type="number" min="0" step="0.01" value="5">
+                <input id="desiredProfit" type="number" min="0" step="0.01" value="00">
             </div>
             <div>
                 <label>Win Payout (%)</label>
-                <input id="payoutPercent" type="number" min="1" step="0.1" value="90">
+                <input id="payoutPercent" type="number" min="1" step="0.1" value="93">
             </div>
             <div>
                 <label>Max Trades</label>
@@ -42,6 +42,7 @@
             <button id="resetAll" class="gray">Reset Results</button>
             <button id="exportCSV" class="gray">Export CSV</button>
             <button id="resetStats" class="gray">Reset Today's Stats</button>
+            <button id="themeToggle" class="gray">🌙 Dark Mode</button>
             <div style="margin-left:auto" class="muted">Tip: edit per-row profit, click Win/Loss to simulate. Stats
                 saved locally.</div>
         </div>
